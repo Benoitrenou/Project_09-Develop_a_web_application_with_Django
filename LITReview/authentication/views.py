@@ -14,10 +14,12 @@ def signup_page(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect(settings.LOGIN_REDIRECT_URL)
+            return redirect('home')
     return render(request, 'authentication/signup.html', context={'form': form})
 
 def login_page(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     form = forms.LoginForm()
     message = ''
     if request.method == 'POST':
