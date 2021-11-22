@@ -3,8 +3,10 @@
     <h1>Bienvenue sur home</h1>
     <div class="grid-container">
         {% for ticket in tickets %}
-                <p><a href="{% url 'view_ticket' ticket.id %}">{{ticket.title}}</a></p>
-            <p>{{ticket.description}}</p>
+            {% include 'reviews/partials/ticket_snippet.html' with ticket=ticket %}
+        {% endfor %}
+        {% for review in reviews %}
+            {% include 'reviews/partials/review_snippet.html' with review=review %}
         {% endfor %}
     </div>
 {% endblock content %}

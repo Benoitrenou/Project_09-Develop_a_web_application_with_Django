@@ -1,0 +1,8 @@
+{% load reviews_extras %}
+<div class="post">
+    <h2><a href="{% url 'review_details' review.id %}">Critique : {{review.headline}}</a></h2>
+    <p>{{ review.body }}</p>
+    <p>{{ review.rating }}/5</p>
+    <p>Par {{ review.user }} / le {{ review.time_created }}</p>
+    {% include 'reviews/partials/ticket_snippet.html' with ticket=review.ticket %}
+</div>

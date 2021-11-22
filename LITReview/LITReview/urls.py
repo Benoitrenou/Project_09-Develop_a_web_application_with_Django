@@ -30,8 +30,12 @@ urlpatterns = [
     path('logout/', authentication.views.logout_page, name='logout'),
     path('home/', reviews.views.home, name='home'),
     path('ticket/create/', reviews.views.create_ticket, name='create_ticket'),
-    path('ticket/<int:ticket_id>/', reviews.views.view_ticket, name='view_ticket'),
-    path('ticket/<int:ticket_id>/edit/', reviews.views.update_ticket, name='edit_ticket'),
+    path('ticket/<int:ticket_id>/', reviews.views.ticket_details, name='ticket_details'),
+    path('ticket/<int:ticket_id>/edit/', reviews.views.edit_ticket, name='edit_ticket'),
+    path('ticket/<int:ticket_id>/review/', reviews.views.create_review, name='create_review'),
+    path('review/<int:review_id>/', reviews.views.review_details, name='review_details'),
+    path('review/create/', reviews.views.create_ticket_and_review, name='create_ticket_and_review'),
+    path('review/<int:review_id>/edit', reviews.views.edit_review, name='edit_review'),
 
 ]
 

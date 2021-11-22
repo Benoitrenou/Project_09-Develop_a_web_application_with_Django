@@ -11,8 +11,9 @@ class Ticket(models.Model):
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
         )
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to=settings.MEDIA_ROOT)
     time_created = models.DateTimeField(auto_now_add=True)
+    has_review = models.BooleanField(default=False)
 
     IMAGE_MAX_SIZE = (800, 800)
 

@@ -1,0 +1,9 @@
+{% load reviews_extras %}
+<div class="post">
+    <h2><a href="{% url 'ticket_details' ticket.id %}">Ticket : {{ticket.title}}</a></h2>
+    <p>{{ ticket.description }}</p>
+    {% if ticket.image %}
+        <img src="{{ ticket.image.url }}">
+    {% endif %}
+    <p>Par {{ ticket.author }} / Le {{ ticket.time_created }}</p>
+</div>
