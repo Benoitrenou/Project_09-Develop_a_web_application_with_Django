@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
+{% load reviews_extras %}
 {% block content %}
     <h1>Bienvenue sur home</h1>
     <div class="grid-container">
-        {% for ticket in tickets %}
-            {% include 'reviews/partials/ticket_snippet.html' with ticket=ticket %}
-        {% endfor %}
-        {% for review in reviews %}
-            {% include 'reviews/partials/review_snippet.html' with review=review %}
+        {% for instance in page_obj %}
+            {% if instance|model_type == 'Ticket' %}
+                {% include 'reviews/partials/ticket_snippet.html' with ticket=instance %}
+            {% elif instance|model_type == 'Review' %}
+                {% include 'reviews/partials/review_snippet.html' with review=instance %}
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock content %}

@@ -1,7 +1,11 @@
+from itertools import chain
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 #from rules.contrib.views import permission_required, objectgetter
 from django.db.models import Q
+from django.core.paginator import Paginator
+
 
 import rules
 from . import models, forms
@@ -12,11 +16,24 @@ def is_ticket_author(user, ticket):
 
 @login_required
 def home(request):
-    tickets = models.Ticket.objects.all()
-    reviews = models.Review.objects.all()
+    tickets = models.Ticket.objects.filter(
+        Q(author__in=request.user.get_connections()) | Q(author=request.user)
+    )
+    reviews = models.Review.objects.filter(
+        Q(user__in=request.user.get_connections()) | Q(user=request.user)
+    )
+
+    flux = sorted(
+        chain(tickets, reviews),
+        key=lambda instance: instance.time_created,
+        reverse=True
+    )
+    paginator = Paginator(flux, 6)
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
+
     context = {
-        'tickets': tickets,
-        'reviews': reviews,
+        'page_obj':page_obj, 
     }
     return render(request, 'reviews/home.html', context=context)
 
