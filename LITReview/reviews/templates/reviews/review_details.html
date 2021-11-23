@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     {% include 'reviews/partials/review_snippet.html' with review=review %}
-    <p><a href="{% url 'edit_review' review.id %}">Modifier la critique</a></p>
+    {% if user == review.user %}
+        <p><a href="{% url 'edit_review' review.id %}">Modifier la critique</a></p>
+    {% endif %}
 {% endblock content %}

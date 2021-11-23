@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Suivre des utilisateurs</h2>
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit" >Confirmer</button>
+        </form>
+    <h2> Utilisateurs suivis:</h2>
+        <ul>
+            {% for connection in user.get_connections %}
+                <li>{{ connection.username }} - 
+                    <form method="post">
+                        {{ delete_form }}
+                        {% csrf_token %}
+                        <button type="submit" >Supprimer</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    <h2> Utilisateurs abonnés:</h2>
+        <ul>
+            {% for followers in user.get_followers %}
+                <li>{{ followers.username }}</li>
+            {% endfor %}
+        </ul>
+{% endblock content %}

@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
     {% include 'reviews/partials/ticket_snippet.html' with ticket=ticket %}
-    <p><a href="{% url 'edit_ticket' ticket.id %}">Modifier le ticket</a></p>
+    {% if user == ticket.author %}
+        <p><a href="{% url 'edit_ticket' ticket.id %}">Modifier le ticket</a></p>
+    {% endif %}
     {% if ticket.has_review %}
         <p></p>
     {% else %}

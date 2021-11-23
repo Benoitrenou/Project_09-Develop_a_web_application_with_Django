@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
 from django.db import models
+#from rules.contrib.models import RulesModelBase, RulesModelMixin
 from PIL import Image
 
 
@@ -23,9 +24,9 @@ class Ticket(models.Model):
         image.save(self.image.path)
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
         if self.image:
             self.resize_image()
+        super().save(*args, **kwargs)
 
 
 class Review(models.Model):
@@ -40,6 +41,13 @@ class Review(models.Model):
         on_delete=models.CASCADE
         )
     time_created = models.DateTimeField(auto_now_add=True)
+
+    def save(self, ticket, user, *args, **kwargs):
+        self.user = user
+        self.ticket = ticket
+        self.ticket.has_review = True
+        self.ticket.save()
+        super().save(*args, **kwargs)
 
 class UserFollows(models.Model):
     user = models.ForeignKey(
