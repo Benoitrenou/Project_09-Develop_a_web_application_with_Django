@@ -49,7 +49,7 @@ class Review(models.Model):
         self.ticket.save()
         super().save(*args, **kwargs)
 
-class UserFollows(models.Model):
+class UserFollow(models.Model):
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

@@ -24,7 +24,8 @@ import reviews.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('authentication/', include('authentication.urls')),
-    path('reviews/', include('reviews.urls'))
+    path('reviews/', include('reviews.urls')),
+    path('', authentication.views.login_page, name='login'),
 ]
 
 if settings.DEBUG:

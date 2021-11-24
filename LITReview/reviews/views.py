@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.paginator import Paginator
 
-
 import rules
 from . import models, forms
 
@@ -144,17 +143,24 @@ def create_ticket_and_review(request):
 
 @login_required
 def follow_users(request):
-    form = forms.UserFollowsForm(request.user)
+    form = forms.UserFollowForm(request.user)
     delete_form = forms.DeleteFollowForm()
     if request.method == 'POST':
         if 'delete_follow' in request.POST:
             delete_form = forms.DeleteFollowForm(request.POST)
             if delete_form.is_valid():
-                print ('Coucou')
+                connection = get_object_or_404(
+                    models.UserFollow,
+                    user=request.user,
+                    followed_user=request.POST['followed_user']
+                )
+                connection.delete()
+                print(request.POST)
+                return redirect('follow_users')
         else:       
-            form = forms.UserFollowsForm(request.user, request.POST)
+            form = forms.UserFollowForm(request.user, request.POST)
             if form.is_valid():
                 form.clean_followed_user()
                 form.save()
                 return redirect('home')
-    return render(request, 'reviews/follow_users_form.html', context={'form': form})
+    return render(request, 'reviews/follow_users_form.html', context={'form': form, 'delete_form': delete_form})

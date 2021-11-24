@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
-from .models import UserFollows
+from .models import UserFollow
 
 from . import models
 
@@ -28,7 +28,7 @@ class ReviewForm(forms.ModelForm):
 class DeleteReviewForm(forms.Form):
     delete_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
-class UserFollowsForm(forms.ModelForm):
+class UserFollowForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         """Modifier l'initialisation pour recevoir l'utilisateur à l'instanciation
         du formulaire.
@@ -39,7 +39,7 @@ class UserFollowsForm(forms.ModelForm):
     followed_user = forms.CharField(max_length=63, label='Utilisateur recherché')
     
     class Meta:
-        model = UserFollows
+        model = UserFollow
         fields = ['followed_user']
 
     def clean_followed_user(self):
@@ -61,7 +61,7 @@ class UserFollowsForm(forms.ModelForm):
     def save(self, commit=True):
         """Crée et sauvegarde une nouvelle instance de subscriber.
         """
-        user_follows = UserFollows(
+        user_follows = UserFollow(
             user=self.user,
             followed_user=self.cleaned_data['followed_user']
         )

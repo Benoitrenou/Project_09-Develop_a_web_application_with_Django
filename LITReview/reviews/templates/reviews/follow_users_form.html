@@ -13,7 +13,7 @@
                     <form method="post">
                         {{ delete_form }}
                         {% csrf_token %}
-                        <button type="submit" >Supprimer</button>
+                        <button type="submit" name="followed_user" value="{{connection.id}}" >Supprimer</button>
                     </form>
                 </li>
             {% endfor %}
