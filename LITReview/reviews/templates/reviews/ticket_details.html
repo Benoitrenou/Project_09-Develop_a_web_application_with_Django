@@ -2,11 +2,11 @@
 {% block content %}
     {% include 'reviews/partials/ticket_snippet.html' with ticket=ticket %}
     {% if user == ticket.author %}
-        <p><a href="{% url 'edit_ticket' ticket.id %}">Modifier le ticket</a></p>
+        <a href="{% url 'edit_ticket' ticket.id %}"><button type="submit" value="ticket.id">Modifier le ticket</button></a>
     {% endif %}
     {% if ticket.has_review %}
         <p></p>
     {% else %}
-        <p><a href="{% url 'create_review' ticket.id %}">Créer une critique en réponse</a></p>
+        <a href="{% url 'create_review' ticket.id %}"><button type="submit">Créer une critique en réponse</button>
     {% endif %}
 {% endblock content %}

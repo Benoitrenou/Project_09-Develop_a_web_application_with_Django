@@ -5,8 +5,10 @@
         {% for instance in page_obj %}
             {% if instance|model_type == 'Ticket' %}
                 {% include 'reviews/partials/ticket_snippet.html' with ticket=instance %}
+                <p><a href="{% url 'edit_ticket' instance.id %}">Modifier le ticket</a></p>
             {% elif instance|model_type == 'Review' %}
                 {% include 'reviews/partials/review_snippet.html' with review=instance %}
+                <a href="{% url 'edit_review' instance.id %}">Modifier la critique</a>
             {% endif %}
         {% endfor %}
     </div>

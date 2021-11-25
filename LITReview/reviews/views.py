@@ -1,17 +1,14 @@
 from itertools import chain
-
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-#from rules.contrib.views import permission_required, objectgetter
 from django.db.models import Q
 from django.core.paginator import Paginator
 
-import rules
 from . import models, forms
 
-""" @rules.predicate
-def is_ticket_author(user, ticket):
-    return ticket.author == user """
 
 @login_required
 def home(request):
@@ -56,50 +53,23 @@ def personal_posts(request):
     context = {
         'page_obj':page_obj, 
     }
-    return render(request, 'reviews/posts.html', context=context)
+    return render(request, 'reviews/personal_posts.html', context=context)
 
-@login_required
-def create_ticket(request):
-    form = forms.TicketForm()
-    if request.method == 'POST':
-        form = forms.TicketForm(request.POST, request.FILES)
-        if form.is_valid():
-            ticket = form.save(commit=False)
-            ticket.author = request.user
-            ticket.save()
-            return render(request, 'reviews/ticket_details.html', {'ticket':ticket})
-    return render(request, 'reviews/create_ticket.html', context={'form': form})
+class TicketDetailsView(LoginRequiredMixin, DetailView):
+    model = models.Ticket
+    fields = ['title', 'description', 'image']
+    template_name = 'reviews/ticket_details.html'
 
-@login_required
-def ticket_details(request, ticket_id):
-    ticket = get_object_or_404(models.Ticket, id=ticket_id)
-    return render(request, 'reviews/ticket_details.html', {'ticket':ticket})
+class CreateTicketView(LoginRequiredMixin, CreateView):
+    model = models.Ticket
+    fields = ['title', 'description', 'image']
+    template_name = 'reviews/create_ticket.html'
 
-@login_required
-#@permission_required('ticket.edit_ticket', fn=objectgetter(models.Ticket, 'ticket_id'))
-def edit_ticket(request, ticket_id):
-    ticket = get_object_or_404(models.Ticket, id=ticket_id)
-    if request.user != ticket.author:
-        return redirect('ticket_details', ticket.id)
-    edit_form = forms.TicketForm(instance=ticket)
-    delete_form = forms.DeleteTicketForm()
-    if request.method == 'POST':
-        if 'edit_ticket' in request.POST:
-            edit_form = forms.TicketForm(request.POST, instance=ticket)
-            if edit_form.is_valid():
-                edit_form.save()
-                return redirect('home')
-        if 'delete_ticket' in request.POST:
-            delete_form = forms.DeleteTicketForm(request.POST)
-            if delete_form.is_valid():
-                ticket.delete()
-                return redirect('home')
-    context = {
-        'edit_form': edit_form,
-        'delete_form': delete_form,
-    }
-    return render(request, 'reviews/edit_ticket.html', context=context)
-
+class UpdateTicketView(LoginRequiredMixin, UpdateView):
+    model = models.Ticket
+    fields = ['title', 'description', 'image']
+    template_name = 'reviews/edit_ticket.html'
+    success_url = '/'
 
 @login_required
 def create_review(request, ticket_id):
@@ -184,5 +154,5 @@ def follow_users(request):
             if form.is_valid():
                 form.clean_followed_user()
                 form.save()
-                return redirect('home')
+                return redirect('follow_users')
     return render(request, 'reviews/follow_users_form.html', context={'form': form, 'delete_form': delete_form})
