@@ -37,6 +37,28 @@ def home(request):
     return render(request, 'reviews/home.html', context=context)
 
 @login_required
+def personal_posts(request):
+    tickets = models.Ticket.objects.filter(
+        Q(author=request.user)
+    )
+    reviews = models.Review.objects.filter(
+        Q(user=request.user)
+    )
+    flux = sorted(
+        chain(tickets, reviews),
+        key=lambda instance: instance.time_created,
+        reverse=True
+    )
+    paginator = Paginator(flux, 6)
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
+
+    context = {
+        'page_obj':page_obj, 
+    }
+    return render(request, 'reviews/posts.html', context=context)
+
+@login_required
 def create_ticket(request):
     form = forms.TicketForm()
     if request.method == 'POST':

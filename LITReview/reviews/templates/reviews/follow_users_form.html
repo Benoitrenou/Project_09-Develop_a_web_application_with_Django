@@ -6,7 +6,7 @@
             {% csrf_token %}
             <button type="submit" >Confirmer</button>
         </form>
-    <h2> Utilisateurs suivis:</h2>
+    <h3> Utilisateurs suivis:</h3>
         <ul>
             {% for connection in user.get_connections %}
                 <li>{{ connection.username }} - 
@@ -18,7 +18,7 @@
                 </li>
             {% endfor %}
         </ul>
-    <h2> Utilisateurs abonnés:</h2>
+    <h3> Utilisateurs abonnés:</h3>
         <ul>
             {% for followers in user.get_followers %}
                 <li>{{ followers.username }}</li>

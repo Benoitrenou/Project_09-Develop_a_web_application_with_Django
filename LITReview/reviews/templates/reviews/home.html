@@ -1,7 +1,39 @@
 {% extends 'base.html' %}
 {% load reviews_extras %}
 {% block content %}
-    <h1>Bienvenue sur home</h1>
+    <div class="row">
+      <div class="col">
+        <div class="jumbotron">
+          <h1>Bienvenue sur votre flux LitReview !</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Postez un ticket</h5>
+            <p class="card-text">Demandez un avis sur un livre ou un article aux utilisateurs de LitReview.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Postez une critique</h5>
+            <p class="card-text">Partagez votre avis à propos d'une de vos lectures.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Suivez des utilisateurs</h5>
+            <p class="card-text">Abonnez-vous à d'autres utilisateurs pour suivre leurs demandes et avis.</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="grid-container">
         {% for instance in page_obj %}
             {% if instance|model_type == 'Ticket' %}
@@ -11,4 +43,5 @@
             {% endif %}
         {% endfor %}
     </div>
+    {% include 'reviews/partials/navigators_snippet.html' with page_obj=page_obj %}
 {% endblock content %}
