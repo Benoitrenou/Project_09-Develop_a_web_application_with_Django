@@ -1,16 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>Modifier le ticket</h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {{ form.as_p }}
         {% csrf_token %}
         <button type="submit">Sauvegarder</button>
     </form>
     <hr>
-    <h3>Supprimer le ticket ?</h3>
-    <form method="post">
-        {{ delete_form }}
-        {% csrf_token %}
-        <button type="submit" >Supprimer</button>
-    </form>
+    <a href="{% url 'delete_ticket' ticket.id %}"><button type="submit">Supprimer le ticket</button></a>
 {% endblock content %}

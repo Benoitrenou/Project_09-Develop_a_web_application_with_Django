@@ -1,5 +1,5 @@
 from itertools import chain
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -55,21 +55,52 @@ def personal_posts(request):
     }
     return render(request, 'reviews/personal_posts.html', context=context)
 
-class TicketDetailsView(LoginRequiredMixin, DetailView):
-    model = models.Ticket
-    fields = ['title', 'description', 'image']
-    template_name = 'reviews/ticket_details.html'
-
 class CreateTicketView(LoginRequiredMixin, CreateView):
     model = models.Ticket
     fields = ['title', 'description', 'image']
     template_name = 'reviews/create_ticket.html'
+    succes_url = '/'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+
+class TicketDetailsView(LoginRequiredMixin, DetailView):
+    model = models.Ticket
+    fields = ['title', 'description', 'image']
+    template_name = 'reviews/ticket_details.html'
 
 class UpdateTicketView(LoginRequiredMixin, UpdateView):
     model = models.Ticket
     fields = ['title', 'description', 'image']
     template_name = 'reviews/edit_ticket.html'
     success_url = '/'
+
+class DeleteTicketView(LoginRequiredMixin, DeleteView):
+    model = models.Ticket
+    template_name = 'reviews/delete_ticket.html'
+    success_url = '/'
+
+""" class CreateReviewView(LoginRequiredMixin, CreateView):
+    model = models.Ticket
+    fields = ['rating', 'headline', 'body']
+    template_name = 'reviews/create_review.html'
+
+class ReviewDetailsView(LoginRequiredMixin, DetailView):
+    model = models.Review
+    fields = ['rating', 'headline', 'body']
+    template_name = 'reviews/review_details.html'
+
+class UpdateReviewView(LoginRequiredMixin, UpdateView):
+    model = models.Review
+    fields =['rating', 'headline', 'body']
+    template_name = 'reviews/edit_review.html'
+    success_url = '/'
+
+class DeleteReviewView(LoginRequiredMixin, DeleteView):
+    model = models.Review
+    template_name = 'reviews/delete_review.html'
+    success_url = '/' """
 
 @login_required
 def create_review(request, ticket_id):

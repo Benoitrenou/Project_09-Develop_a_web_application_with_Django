@@ -5,7 +5,6 @@
         <a href="{% url 'edit_ticket' ticket.id %}"><button type="submit" value="ticket.id">Modifier le ticket</button></a>
     {% endif %}
     {% if ticket.has_review %}
-        <p></p>
     {% else %}
         <a href="{% url 'create_review' ticket.id %}"><button type="submit">Créer une critique en réponse</button>
     {% endif %}

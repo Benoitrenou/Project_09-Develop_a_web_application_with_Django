@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% include 'reviews/partials/ticket_snippet.html' with ticket=ticket %}
+    <form method="post">
+        {% csrf_token %}
+        <p>Etes-vous sûrs de vouloir supprimer ce ticket ?</p>
+        <input type="submit" value="Confirmer">
+    </form>
+{% endblock content %}

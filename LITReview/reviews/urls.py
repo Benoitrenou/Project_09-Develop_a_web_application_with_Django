@@ -7,9 +7,15 @@ urlpatterns = [
     path('ticket/create/', views.CreateTicketView.as_view(), name='create_ticket'),
     path('ticket/<pk>/', views.TicketDetailsView.as_view(), name='ticket_details'),
     path('ticket/<pk>/edit/', views.UpdateTicketView.as_view(), name='edit_ticket'),
+    path('ticket/<pk>/delete/', views.DeleteTicketView.as_view(), name='delete_ticket'),
     path('ticket/<int:ticket_id>/review/', views.create_review, name='create_review'),
     path('review/<int:review_id>/', views.review_details, name='review_details'),
     path('review/create/', views.create_ticket_and_review, name='create_ticket_and_review'),
     path('review/<int:review_id>/edit', views.edit_review, name='edit_review'),
     path('home/follow-users/', views.follow_users, name='follow_users')
 ]
+
+""" path('review/create/', views.CreateReviewView.as_view(), name='create_review'),
+    path('review/<pk>/', views.ReviewDetailsView.as_view(), name='review_details'),
+    path('review/<pk>/edit/', views.UpdateReviewView.as_view(), name='edit_review'),
+    path('review/<pk>/delete/', views.DeleteReviewView.as_view(), name='delete_review'), """
