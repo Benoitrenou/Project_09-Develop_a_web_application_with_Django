@@ -13,14 +13,12 @@ from . import models, forms
 @login_required
 def home(request):
     tickets = models.Ticket.objects.filter(
-        Q(
-            author__in=request.user.get_connections()
-            ) | Q(author=request.user)
+        Q(author__in=request.user.get_connections()) | Q(author=request.user)
     )
     reviews = models.Review.objects.filter(
-        Q(
-            user__in=request.user.get_connections()
-            ) | Q(user=request.user)
+        Q(user__in=request.user.get_connections()) 
+        | Q(user=request.user) 
+        | Q(ticket__author=request.user)
     )
 
     flux = sorted(
