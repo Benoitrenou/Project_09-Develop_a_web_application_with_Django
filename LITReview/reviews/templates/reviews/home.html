@@ -4,43 +4,31 @@
     <div class="row">
       <div class="col">
         <div class="jumbotron">
-          <h1>Bienvenue sur votre flux LitReview !</h1>
+          <h1 class="text-center">Bienvenue sur LitReview !</h1>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Postez un ticket</h5>
-            <p class="card-text">Demandez un avis sur un livre ou un article aux utilisateurs de LitReview.</p>
-          </div>
-        </div>
+      <div class="col-6 d-flex justify-content-center">
+        <a class="nav-link" href="{% url 'create_ticket' %}">
+          <button type="submit" class="btn btn-outline-dark btn-lg">Demander une critique</button>
+        </a>
       </div>
-      <div class="col-12 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Postez une critique</h5>
-            <p class="card-text">Partagez votre avis à propos d'une de vos lectures.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Suivez des utilisateurs</h5>
-            <p class="card-text">Abonnez-vous à d'autres utilisateurs pour suivre leurs demandes et avis.</p>
-          </div>
-        </div>
+      <div class="col-6 d-flex justify-content-center">
+        <a class="nav-link" href="{% url 'create_ticket_and_review' %}">
+          <button type="submit" class="btn btn-outline-dark btn-lg">Créer une critique</button>
+        </a>
       </div>
     </div>
     <div class="grid-container">
         {% for instance in page_obj %}
+        <div class="border border-dark rounded p-5 m-3">
             {% if instance|model_type == 'Ticket' %}
                 {% include 'reviews/partials/ticket_snippet.html' with ticket=instance %}
             {% elif instance|model_type == 'Review' %}
                 {% include 'reviews/partials/review_snippet.html' with review=instance %}
             {% endif %}
+        </div>
         {% endfor %}
     </div>
     {% include 'reviews/partials/navigators_snippet.html' with page_obj=page_obj %}

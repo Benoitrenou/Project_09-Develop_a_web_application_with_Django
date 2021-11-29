@@ -1,0 +1,13 @@
+{% load reviews_extras %}
+<p> Sélectionnez un ticket pré-existant afin d'y répondre ou bien créeZ votre propre ticket si vous le souhaitez. </p>
+<div class="dropdown m-3">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sélectionnez un ticket
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    {% for ticket in tickets_list %}
+      <a class="dropdown-item" href="{% url 'create_review' ticket.id %}"> {{ ticket.title }} - Par {% get_poster_display ticket.author %} </a>
+    {% endfor %}
+      <a class="dropdown-item" href="{% url 'create_ticket_and_review' %}"> Créer votre propre ticket </a>
+  </div>
+</div>

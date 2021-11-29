@@ -4,16 +4,25 @@
     <div class="grid-container">
         {% for instance in page_obj %}
             {% if instance|model_type == 'Ticket' %}
+            <div class="border border-dark rounded p-5 m-3">
                 {% include 'reviews/partials/ticket_snippet.html' with ticket=instance %}
                 <a href="{% url 'edit_ticket' instance.id %}">
-                    <button type="submit">Modifier le ticket</button>
+                    <button type="submit" class="btn btn-dark">Modifier le ticket</button>
                 </a>
                 <a href="{% url 'delete_ticket' instance.id %}">
-                    <button type="submit">Supprimer le ticket</button>
+                    <button type="submit" class="btn btn-dark">Supprimer le ticket</button>
                 </a>
+            </div>
             {% elif instance|model_type == 'Review' %}
+            <div class="border border-dark rounded p-5 m-3">
                 {% include 'reviews/partials/review_snippet.html' with review=instance %}
-                <a href="{% url 'edit_review' instance.id %}">Modifier la critique</a>
+                <a href="{% url 'edit_review' instance.id %}">
+                  <button type="submit" class="btn btn-dark">Modifier la critique</button>
+                </a>
+                <a href="{% url 'delete_review' instance.id %}">
+                    <button type="submit" class="btn btn-dark">Supprimer la critique</button>
+                </a>
+            </div>
             {% endif %}
         {% endfor %}
     </div>

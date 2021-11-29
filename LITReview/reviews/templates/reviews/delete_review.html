@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <section class="p-5 m-3">
-    {% include 'reviews/partials/ticket_snippet.html' with ticket=ticket %}
+    {% include 'reviews/partials/review_snippet.html' with review=review %}
     <form method="post">
         {% csrf_token %}
-        <p><strong>Etes-vous sûrs de vouloir supprimer ce ticket ?</strong></p>
+        <p><strong>Etes-vous sûrs de vouloir supprimer cette critique ?</strong></p>
         <button type="submit" value="Confirmer" class="btn btn-dark">Confirmer</button>
     </form>
 </section>

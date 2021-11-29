@@ -27,8 +27,6 @@ class Ticket(models.Model):
         if self.image:
             self.resize_image()
         
-
-
 class Review(models.Model):
     ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(
@@ -42,9 +40,7 @@ class Review(models.Model):
         )
     time_created = models.DateTimeField(auto_now_add=True)
 
-    def save(self, ticket, user, *args, **kwargs):
-        self.user = user
-        self.ticket = ticket
+    def save(self, *args, **kwargs):
         self.ticket.has_review = True
         self.ticket.save()
         super().save(*args, **kwargs)

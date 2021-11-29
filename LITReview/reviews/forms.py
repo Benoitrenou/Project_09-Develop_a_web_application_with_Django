@@ -14,16 +14,28 @@ class TicketForm(forms.ModelForm):
     class Meta:
         model = models.Ticket
         fields = ['title', 'description', 'image']
+        labels = {
+            'title':'Titre', 
+            'description':'Description', 
+            'image':'Couverture'
+            }
 
 class DeleteTicketForm(forms.Form):
     delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
 class ReviewForm(forms.ModelForm):
+    choices = [(0, '0'), (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')]
     edit_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    rating = forms.TypedChoiceField(label='Note', widget=forms.RadioSelect(), choices=choices, coerce=int)
 
     class Meta:
         model = models.Review
-        fields = ['rating', 'headline', 'body']
+        fields = ['headline', 'rating', 'body']
+        labels = {
+            'headline':'Titre', 
+            'body':'Description', 
+            'rating':'Note'
+            }
 
 class DeleteReviewForm(forms.Form):
     delete_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)

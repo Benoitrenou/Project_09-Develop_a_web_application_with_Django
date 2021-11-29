@@ -1,8 +1,15 @@
 {% load reviews_extras %}
-<div class="post">
     <h2><a href="{% url 'review_details' review.id %}">Critique : {{review.headline}}</a></h2>
+    {% in_range review.rating as rating %}
+      {% for star in rating %}
+        {% include 'reviews/partials/rating_star_filled.html' %}
+      {% endfor %}
+    {% in_range review.rating|add:"-5" as rating %}
+      {% for star in rating %}
+        {% include 'reviews/partials/rating_star_empty.html' %}
+      {% endfor %}
     <p>{{ review.body }}</p>
-    <p>{{ review.rating }}/5</p>
-    <p>Par {{ review.user }} / le {{ review.time_created }}</p>
-    {% include 'reviews/partials/ticket_snippet.html' with ticket=review.ticket %}
-</div>
+    <p>Par {% get_poster_display review.user %} / {{ review.time_created|get_posted_at_display }}</p>
+    <div class="border border-dark rounded p-5 m-3">
+      {% include 'reviews/partials/ticket_snippet.html' with ticket=review.ticket %}
+    </div>

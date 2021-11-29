@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
+{% load reviews_extras %}
 {% block content %}
-    <h2> Créer une critique</h2>
+<section class="p-5 m-3">
+    <h2 class="pb-3">Livre/Article</h2>
+    {% include 'reviews/partials/dropdown_snippet.html' with tickets_list=tickets_list %}
     <form method="post" enctype="multipart/form-data">
     {{ ticket_form.as_p }}
+    <hr>
+    <h2 class="pb-3">Critique</h2>
     {{review_form.as_p }}
     {% csrf_token %}
-        <button type="submit" >Publier</button>
+    <button type="submit" class="btn btn-dark">Publier</button>
     </form>
+</section>
 {% endblock content %}
