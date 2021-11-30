@@ -7,10 +7,7 @@
     <form method="post" enctype="multipart/form-data">
     {{ ticket_form.as_p }}
     <hr>
-    <h2 class="pb-3">Critique</h2>
-    {{review_form.as_p }}
-    {% csrf_token %}
-    <button type="submit" class="btn btn-dark">Publier</button>
+    {% include 'reviews/partials/review_form.html' with form=review_form %}
     </form>
 </section>
 {% endblock content %}

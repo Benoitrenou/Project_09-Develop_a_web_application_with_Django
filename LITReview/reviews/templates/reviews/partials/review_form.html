@@ -1,7 +1,7 @@
 {% load reviews_extras %}
 <h3 class="my-3">Critique :</h3>
     <form method="POST" enctype="multipart/form-data">
-        {% for field in form %}
+        {% for field in form.visible_fields %}
           {% if field.label == 'Note' %}
             <div class="row-container my-2">
                 <p>{{ field.label }} :</p>
@@ -11,7 +11,6 @@
                   <input type="radio" value="{{i}}" name="rating" id="id_rating_{{i}}" data-np-checked="1">
                 {% endfor %}
             </div>
-          {% elif field.label == 'edit' %}
           {% else %}
             <div class="fieldWrapper">
               {{ field.errors }}

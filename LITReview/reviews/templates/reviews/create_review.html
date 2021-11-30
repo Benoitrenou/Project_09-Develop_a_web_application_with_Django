@@ -5,35 +5,6 @@
     <h2 class="pb-3">Créer une critique</h2>
     {% include 'reviews/partials/dropdown_snippet.html' with tickets_list=tickets_list %}
     {% include 'reviews/partials/ticket_snippet.html' with ticket=ticket %}
-    <h3 class="my-3">Critique :</h3>
-    {% comment %} <form method="POST" enctype="multipart/form-data">
-        {% for field in form %}
-          {% if field.label == 'Note' %}
-            <div class="row-container my-2">
-                <p>{{ field.label }} :</p>
-                {% in_range 6 as rating_range %} 
-                {% for i in rating_range %}
-                  <label for="id_rating_{{i}}">{{i}}</label>
-                  <input type="radio" value="{{i}}" name="rating" id="id_rating_{{i}}" data-np-checked="1">
-                {% endfor %}
-            </div>
-          {% elif field.label == 'edit' %}
-          {% else %}
-            <div class="fieldWrapper">
-              {{ field.errors }}
-              {{ field.label_tag }} {{ field }}
-            </div>
-          {% endif %}
-        {% endfor %}
-        {% csrf_token %}
-        <button type="submit" class="btn btn-dark">Publier</button>
-    </form> {% endcomment %}
-    <form method="post" enctype="multipart/form-data">
-        <div class="row-container my-2">
-        {{ form.as_p }}
-        </div>
-        {% csrf_token %}
-        <button type="submit" class="btn btn-dark">Publier</button>
-    </form>
+    {% include 'reviews/partials/review_form.html' with form=form %}
 </section>
 {% endblock content %}
