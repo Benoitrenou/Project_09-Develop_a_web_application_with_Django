@@ -147,6 +147,7 @@ def edit_review(request, review_id):
     context = {
         'edit_form': edit_form,
         'delete_form': delete_form,
+        'review': review,
     }
     return render(
         request,
@@ -164,6 +165,7 @@ def delete_review(request, review_id):
         delete_form = forms.DeleteReviewForm(request.POST)
         if delete_form.is_valid():
             review.ticket.has_review=False
+            review.ticket.save()
             review.delete()
             return redirect('home')
     context = {
@@ -173,7 +175,7 @@ def delete_review(request, review_id):
     return render(
         request,
         'reviews/delete_review.html',
-        context={'review':review}
+        context=context
         )
 
 @login_required

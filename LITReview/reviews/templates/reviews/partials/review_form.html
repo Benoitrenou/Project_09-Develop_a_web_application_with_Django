@@ -1,12 +1,6 @@
-{% extends 'base.html' %}
 {% load reviews_extras %}
-{% block content %}
-<section class="p-5 m-3">
-    <h2 class="pb-3">Créer une critique</h2>
-    {% include 'reviews/partials/dropdown_snippet.html' with tickets_list=tickets_list %}
-    {% include 'reviews/partials/ticket_snippet.html' with ticket=ticket %}
-    <h3 class="my-3">Critique :</h3>
-    {% comment %} <form method="POST" enctype="multipart/form-data">
+<h3 class="my-3">Critique :</h3>
+    <form method="POST" enctype="multipart/form-data">
         {% for field in form %}
           {% if field.label == 'Note' %}
             <div class="row-container my-2">
@@ -21,19 +15,10 @@
           {% else %}
             <div class="fieldWrapper">
               {{ field.errors }}
-              {{ field.label_tag }} {{ field }}
+              {{ field.label }} : {{ field }}
             </div>
           {% endif %}
         {% endfor %}
         {% csrf_token %}
         <button type="submit" class="btn btn-dark">Publier</button>
-    </form> {% endcomment %}
-    <form method="post" enctype="multipart/form-data">
-        <div class="row-container my-2">
-        {{ form.as_p }}
-        </div>
-        {% csrf_token %}
-        <button type="submit" class="btn btn-dark">Publier</button>
     </form>
-</section>
-{% endblock content %}

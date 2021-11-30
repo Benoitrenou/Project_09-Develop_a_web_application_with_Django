@@ -2,17 +2,15 @@
 {% block content %}
 <section class="p-5 m-3">
     <h2 class="pb-3">Modifier la critique</h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {{ edit_form.as_p }}
         {% csrf_token %}
         <button type="submit" class="btn btn-dark">Sauvegarder</button>
     </form>
     <hr>
     <h3 class="pb-3">Supprimer la critique ?</h3>
-    <form method="post">
-        {{ delete_form }}
-        {% csrf_token %}
-        <button type="submit" class="btn btn-dark">Supprimer</button>
-    </form>
+    <a href="{% url 'delete_review' review.id %}">
+        <button type="submit"  class="btn btn-dark">Supprimer</button>
+    </a>
 </section>
 {% endblock content %}

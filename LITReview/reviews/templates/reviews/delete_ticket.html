@@ -4,7 +4,7 @@
     {% include 'reviews/partials/ticket_snippet.html' with ticket=ticket %}
     <form method="post">
         {% csrf_token %}
-        <p><strong>Etes-vous sûrs de vouloir supprimer ce ticket ?</strong></p>
+        <p><strong>Etes-vous sûr de vouloir supprimer ce ticket ?</strong></p>
         <button type="submit" value="Confirmer" class="btn btn-dark">Confirmer</button>
     </form>
 </section>
