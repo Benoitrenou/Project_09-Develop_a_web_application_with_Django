@@ -59,6 +59,7 @@ Vous pouvez ensuite accéder au site via votre navigateur à l'[adresse suivante
 Il existe un profil de démonstration auquel vous pouvez accéder en entrant les logins suivants:
 
   Nom d'utilisateur: userdemo
+  
   Mot de passe: projet09
   
 Vous accéderez ainsi à un flux déjà constitué de plusieurs publications
