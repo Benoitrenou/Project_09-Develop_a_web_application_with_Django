@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load reviews_extras %}
 {% block content %}
+<section class="p-5 m-3">
+  <h1>Publications de {{user}}</h1>
     <div class="grid-container">
         {% for instance in page_obj %}
             {% if instance|model_type == 'Ticket' %}
@@ -26,5 +28,6 @@
             {% endif %}
         {% endfor %}
     </div>
-    {% include 'reviews/partials/navigators_snippet.html' with page_obj=page_obj %}
+</section>
+{% include 'reviews/partials/navigators_snippet.html' with page_obj=page_obj %}
 {% endblock content %}

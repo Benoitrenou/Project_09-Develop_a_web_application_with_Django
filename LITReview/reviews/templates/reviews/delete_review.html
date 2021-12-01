@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <section class="p-5 m-3">
-    {% include 'reviews/partials/review_snippet.html' with review=review %}
     <form method="post">
         {{ delete_form }}
         {% csrf_token %}
         <p><strong>Etes-vous sûr de vouloir supprimer cette critique ?</strong></p>
         <button type="submit" value="Confirmer" class="btn btn-dark">Confirmer</button>
     </form>
+    {% include 'reviews/partials/review_snippet.html' with review=review %}
 </section>
 {% endblock content %}
