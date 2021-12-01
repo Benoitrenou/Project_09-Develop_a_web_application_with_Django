@@ -23,24 +23,24 @@ Depuis votre terminal de commande, effectuez les commandes suivantes
 ### Sous Linux/ MAC OS
 
     $ python -m venv <environment_name>
-    exemple : python -m venv env_scrapping 
+    exemple : python -m venv envlitreview
     
 ### Sous Windows:
     
     $ virtualenv <environment_name>
-    exemple : virtualenv env_scrapping 
+    exemple : virtualenv envlitreview 
     
 ## Activation de l'environnement virtuel : 
 
 ### Sous Linux / MAC OS:
 
     $ source <environment_name>/bin/activate
-    exemple : source env_scrapping/bin/activate
+    exemple : source envlitreview/bin/activate
    
 ### Sous Windows:
 
     $ source <environment_name>/Scripts/activate
-    exemple : source env_scrapping/Scripts/activate
+    exemple : source envlitreview/Scripts/activate
     
 ## Installation des packages : 
 
