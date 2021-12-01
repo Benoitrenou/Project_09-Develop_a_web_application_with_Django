@@ -53,3 +53,13 @@ Dans le terminal depuis le répertoire du projet
     $ python manage.py runserver
 
 Vous pouvez ensuite accéder au site via votre navigateur à l'[adresse suivante](http://127.0.0.1:8000/)
+
+## Accès au site
+
+Il existe un profil de démonstration auquel vous pouvez accéder en entrant les logins suivants:
+
+  Nom d'utilisateur: userdemo
+  Mot de passe: projet09
+  
+Vous accéderez ainsi à un flux déjà constitué de plusieurs publications
+Vous pouvez également créer votre propre profil via la page d'inscription
