@@ -14,7 +14,11 @@ class Ticket(models.Model):
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         )
-    image = models.ImageField(null=True, blank=True, upload_to=settings.MEDIA_ROOT)
+    image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to=settings.MEDIA_ROOT
+        )
     time_created = models.DateTimeField(auto_now_add=True)
     has_review = models.BooleanField(default=False)
 
@@ -34,6 +38,7 @@ class Ticket(models.Model):
         super().save(*args, **kwargs)
         if self.image:
             self.resize_image()
+
 
 class Review(models.Model):
     """ Class representative of a review concerning a book or article
@@ -57,6 +62,7 @@ class Review(models.Model):
         self.ticket.has_review = True
         self.ticket.save()
         super().save(*args, **kwargs)
+
 
 class UserFollow(models.Model):
     """ Class representative of a user's subscriptions to others users

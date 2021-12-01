@@ -6,6 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 from . import forms
 
+
 def signup_page(request):
     """ Generates the view to signup
     """
@@ -16,7 +17,12 @@ def signup_page(request):
             user = form.save()
             login(request, user)
             return redirect('home')
-    return render(request, 'authentication/signup.html', context={'form': form})
+    return render(
+        request,
+        'authentication/signup.html',
+        context={'form': form}
+        )
+
 
 def login_page(request):
     """ Generates the view to login
@@ -36,7 +42,12 @@ def login_page(request):
                 login(request, user)
                 return redirect('home')
         message = 'Identifiants invalides.'
-    return render(request, 'authentication/login.html', context={'form': form, 'message': message})
+    return render(
+        request,
+        'authentication/login.html',
+        context={'form': form, 'message': message}
+        )
+
 
 @login_required
 def change_password(request):
@@ -47,19 +58,28 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            messages.success(request, 'Your password was successfully updated!')
+            messages.success(
+                request,
+                'Your password was successfully updated!'
+                )
             return redirect('password_change_done')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, 'authentication/password_change_form.html', {'form': form})
+    return render(
+        request,
+        'authentication/password_change_form.html',
+        {'form': form}
+        )
+
 
 @login_required
 def change_password_done(request):
     """ Generates view confirming password change
     """
     return render(request, 'authentication/password_change_done.html')
+
 
 def logout_page(request):
     """ Generates view confirming logout

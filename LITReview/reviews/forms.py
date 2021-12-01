@@ -7,6 +7,7 @@ from . import models
 
 User = get_user_model()
 
+
 class TicketForm(forms.ModelForm):
     """ Form for Ticket creation
     """
@@ -18,15 +19,17 @@ class TicketForm(forms.ModelForm):
         model = models.Ticket
         fields = ['title', 'description', 'image']
         labels = {
-            'title':'Titre',
-            'description':'Description',
-            'image':'Couverture'
+            'title': 'Titre',
+            'description': 'Description',
+            'image': 'Couverture'
             }
+
 
 class DeleteTicketForm(forms.Form):
     """ Form for Ticket suppression
     """
     delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
 
 class ReviewForm(forms.ModelForm):
     """ Form for Review creation
@@ -46,15 +49,17 @@ class ReviewForm(forms.ModelForm):
         model = models.Review
         fields = ['headline', 'rating', 'body']
         labels = {
-            'headline':'Titre',
-            'body':'Description',
-            'rating':'Note'
+            'headline': 'Titre',
+            'body': 'Description',
+            'rating': 'Note'
             }
+
 
 class DeleteReviewForm(forms.Form):
     """ Form for Review suppression
     """
     delete_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
 
 class UserFollowForm(forms.ModelForm):
     """ Form for UserFollow creation
@@ -65,7 +70,10 @@ class UserFollowForm(forms.ModelForm):
         self.user = user
         super().__init__(*args, **kwargs)
 
-    followed_user = forms.CharField(max_length=63, label='Utilisateur recherché')
+    followed_user = forms.CharField(
+        max_length=63,
+        label='Utilisateur recherché'
+        )
 
     class Meta:
         """ Override of Meta class
@@ -80,7 +88,9 @@ class UserFollowForm(forms.ModelForm):
         try:
             user = User.objects.get(username=username)
             if self.user == user:
-                raise ValidationError('Vous ne pouvez pas vous suivre vous-mêmes')
+                raise ValidationError(
+                    'Vous ne pouvez pas vous suivre vous-mêmes'
+                    )
             if user in self.user.get_connections():
                 raise ValidationError('Vous suivez déjà cet utilisateur')
         except User.DoesNotExist:
@@ -98,6 +108,7 @@ class UserFollowForm(forms.ModelForm):
         if commit:
             user_follows.save()
         return user_follows
+
 
 class DeleteFollowForm(forms.Form):
     """ Form for UserFollow suppression

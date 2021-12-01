@@ -12,7 +12,8 @@ from . import models, forms
 
 @login_required
 def home(request):
-    """ Generates the main flux of user based on his subscriptions and his own publications
+    """ Generates the main flux of user based on 
+    his subscriptions and his own publications
     """
     tickets = models.Ticket.objects.filter(
         Q(author__in=request.user.get_connections()) | Q(author=request.user)
@@ -33,9 +34,10 @@ def home(request):
     page_obj = paginator.get_page(page)
 
     context = {
-        'page_obj':page_obj,
+        'page_obj': page_obj,
     }
     return render(request, 'reviews/home.html', context=context)
+
 
 @login_required
 def personal_posts(request):
@@ -57,13 +59,14 @@ def personal_posts(request):
     page_obj = paginator.get_page(page)
 
     context = {
-        'page_obj':page_obj,
+        'page_obj': page_obj,
     }
     return render(
         request,
         'reviews/personal_posts.html',
         context=context
         )
+
 
 class CreateTicketView(LoginRequiredMixin, CreateView):
     """ Generic view for creating a Ticket
@@ -80,11 +83,13 @@ class CreateTicketView(LoginRequiredMixin, CreateView):
         instance.author = self.request.user
         return super().form_valid(form)
 
+
 class TicketDetailsView(LoginRequiredMixin, DetailView):
     """ Generic view for accessing a Ticket details
     """
     model = models.Ticket
     template_name = 'reviews/ticket_details.html'
+
 
 class UpdateTicketView(LoginRequiredMixin, UpdateView):
     """ Generic view for modificating for a Ticket
@@ -94,12 +99,14 @@ class UpdateTicketView(LoginRequiredMixin, UpdateView):
     template_name = 'reviews/edit_ticket.html'
     success_url = '/'
 
+
 class DeleteTicketView(LoginRequiredMixin, DeleteView):
     """ Generic view for deleting a Ticket
     """
     model = models.Ticket
     template_name = 'reviews/delete_ticket.html'
     success_url = '/'
+
 
 @login_required
 def create_review(request, ticket_id):
@@ -123,12 +130,12 @@ def create_review(request, ticket_id):
             return render(
                 request,
                 'reviews/review_details.html',
-                {'review':review}
+                {'review': review}
                 )
     context = {
-        'form':form,
-        'ticket':ticket,
-        'tickets_list':tickets_list
+        'form': form,
+        'ticket': ticket,
+        'tickets_list': tickets_list
     }
     return render(
         request,
@@ -136,12 +143,14 @@ def create_review(request, ticket_id):
         context=context,
         )
 
+
 @login_required
 def review_details(request, review_id):
     """ Generates the view for accessing a Review details
     """
     review = get_object_or_404(models.Review, id=review_id)
-    return render(request, 'reviews/review_details.html', {'review':review})
+    return render(request, 'reviews/review_details.html', {'review': review})
+
 
 @login_required
 def edit_review(request, review_id):
@@ -162,7 +171,7 @@ def edit_review(request, review_id):
             return render(
                 request.GET,
                 'reviews/delete_review.html',
-                context={'review':review},
+                context={'review': review},
             )
     context = {
         'edit_form': edit_form,
@@ -175,6 +184,7 @@ def edit_review(request, review_id):
         context=context
         )
 
+
 @login_required
 def delete_review(request, review_id):
     """ Generates view for deleting a Ticket
@@ -186,7 +196,7 @@ def delete_review(request, review_id):
     if request.method == 'POST' and 'delete_review' in request.POST:
         delete_form = forms.DeleteReviewForm(request.POST)
         if delete_form.is_valid():
-            review.ticket.has_review=False
+            review.ticket.has_review = False
             review.ticket.save()
             review.delete()
             return redirect('home')
@@ -199,6 +209,7 @@ def delete_review(request, review_id):
         'reviews/delete_review.html',
         context=context
         )
+
 
 @login_required
 def create_ticket_and_review(request):
@@ -227,13 +238,14 @@ def create_ticket_and_review(request):
     context = {
         'ticket_form': ticket_form,
         'review_form': review_form,
-        'tickets_list':tickets_list,
+        'tickets_list': tickets_list,
     }
     return render(
         request,
         'reviews/create_ticket_and_review.html',
         context=context
         )
+
 
 @login_required
 def follow_users(request):

@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 import authentication.views
-import reviews.views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -7,6 +7,7 @@ DAY = 24 * HOUR
 
 register = template.Library()
 
+
 @register.filter
 def model_type(value):
     """ Creates a template filter
@@ -14,13 +15,15 @@ def model_type(value):
     """
     return type(value).__name__
 
+
 @register.simple_tag
 def in_range(number):
     """ Creates a template tag returning an iterable
     of the length given of the number in argument
     """
-    number=abs(number)
+    number = abs(number)
     return [*range(number)]
+
 
 @register.filter
 def get_posted_at_display(posted_at):
@@ -33,6 +36,7 @@ def get_posted_at_display(posted_at):
     elif seconds_ago <= DAY:
         return f'Publié il y a {int(seconds_ago // HOUR)} heures.'
     return f'Publié le {posted_at.strftime("%d %b %y à %Hh%M")}'
+
 
 @register.simple_tag(takes_context=True)
 def get_poster_display(context, user):
