@@ -8,7 +8,7 @@
       {% for star in rating %}
         {% include 'reviews/partials/rating_star_empty.html' %}
       {% endfor %}
-    <p>{{ review.body }}</p>
+    <p class="text-justify">{{ review.body }}</p>
     <p>Par {% get_poster_display review.user %} / {{ review.time_created|get_posted_at_display }}</p>
     <div class="border border-dark rounded p-5 m-3">
       {% include 'reviews/partials/ticket_snippet.html' with ticket=review.ticket %}
