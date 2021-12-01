@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
@@ -8,6 +7,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from . import forms
 
 def signup_page(request):
+    """ Generates the view to signup
+    """
     form = forms.SignupForm()
     if request.method == 'POST':
         form = forms.SignupForm(request.POST)
@@ -18,6 +19,8 @@ def signup_page(request):
     return render(request, 'authentication/signup.html', context={'form': form})
 
 def login_page(request):
+    """ Generates the view to login
+    """
     if request.user.is_authenticated:
         return redirect('home')
     form = forms.LoginForm()
@@ -37,6 +40,8 @@ def login_page(request):
 
 @login_required
 def change_password(request):
+    """ Generates a view for user to change passsword
+    """
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -52,8 +57,12 @@ def change_password(request):
 
 @login_required
 def change_password_done(request):
+    """ Generates view confirming password change
+    """
     return render(request, 'authentication/password_change_done.html')
 
 def logout_page(request):
+    """ Generates view confirming logout
+    """
     logout(request)
     return render(request, 'authentication/logout.html')
