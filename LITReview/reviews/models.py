@@ -20,7 +20,12 @@ class Ticket(models.Model):
         upload_to=settings.MEDIA_ROOT
         )
     time_created = models.DateTimeField(auto_now_add=True)
-    has_review = models.BooleanField(default=False)
+
+    def get_user_review(self, user):
+        """ Return the review wrote by the user 
+        linked to the ticket object
+        """
+        return self.review_set.filter(user=user).first()
 
     IMAGE_MAX_SIZE = (800, 800)
 
@@ -59,7 +64,6 @@ class Review(models.Model):
         """ Override of the save method
         including alteration of ticket attribute
         """
-        self.ticket.has_review = True
         self.ticket.save()
         super().save(*args, **kwargs)
 

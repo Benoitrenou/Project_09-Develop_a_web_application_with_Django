@@ -5,7 +5,7 @@ from .models import Ticket, Review, UserFollow
 class TicketAdmin(admin.ModelAdmin):
     """ Handle model Ticket representation in admin interface
     """
-    list_display = ('title', 'author', 'has_review', 'id')
+    list_display = ('title', 'author', 'id')
 
 
 class ReviewAdmin(admin.ModelAdmin):

@@ -113,8 +113,14 @@ def create_review(request, ticket_id):
     """ Generates the page for creating a Review
     """
     ticket = get_object_or_404(models.Ticket, id=ticket_id)
+    if review:= ticket.get_user_review(request.user):
+        return render(
+            request,
+            'reviews/review_details.html',
+            {'review':review}
+            )
     tickets_list = models.Ticket.objects.filter(
-        Q(has_review=False) & (
+        ~Q(review__user=request.user) & (
             Q(author__in=request.user.get_connections()) |
             Q(author=request.user)
             )
@@ -218,7 +224,7 @@ def create_ticket_and_review(request):
     ticket_form = forms.TicketForm()
     review_form = forms.ReviewForm()
     tickets_list = models.Ticket.objects.filter(
-        Q(has_review=False) & (
+        ~Q(review__user=request.user) & (
             Q(author__in=request.user.get_connections()) |
             Q(author=request.user)
             )
