@@ -1,68 +1,62 @@
-# projet_09
+This LitReview project is an Minimum Viable Product of an application for sharing reviews and opinions on books and articles.
+The user can use the application to : 
+  - request a review of a book/article from other users;
+  - post their own review of a book/article;
+  - follow users so that their posts (requests and reviews) appear on his personal feed.
 
-Ce projet LitReview est un MVP d'une application de partage de critiques et avis sur des livres et articles.
-L'utilisateur peut utiliser l'application pour : 
-  - demander un avis concernant un livre/article aux autres utilisateurs ;
-  - poster son propre avis concerant un livre/article ;
-  - suivre des utilisateurs afin que leurs publications (demandes et avis) s'affichent sur son flux personnel.
+This application was built using the Django framework in its version 3.2.9. The front-end was managed via Bootstrap.
 
-Cette application a été construite en utilisant le framework Django dans sa version 3.2.9. Le front-end a quant à lui été géré via Bootstrap.
+The objectives of this project were:
+    - Developp a web application using the framework Django
+    - Use server-side rendering in Django
+    - Build the frond-end pages using Bootstrap
 
-Afin de faire fonctionner cette application en local, veuillez suivres les indications suivantes
+Follow instructions below in order to launch the application.
 
-## Clônage du projet
+## Create virtual environment
 
-Tout d'abord, clônez en local le dépôt distant via la commande suivante dans votre terminal :
+From your terminal, enter the following commands depending on your operating system
 
-    $ git clone https://github.com/Benoitrenou/projet_09.git
-
-## Création de l'environnement virtuel
-
-Pour créer un environnement virtuel, depuis votre terminal de commande, effectuez les commandes suivantes :
-
-### Sous Linux/ MAC OS
+### With Linux/ MAC OS
 
     $ python -m venv <environment_name>
-    exemple : python -m venv envlitreview
+    example : python -m venv envlitreview
     
-### Sous Windows:
+### With Windows:
     
     $ virtualenv <environment_name>
-    exemple : virtualenv envlitreview 
+    example : virtualenv envlitreview 
     
-## Activation de l'environnement virtuel 
+## Activate virtual environment
 
-### Sous Linux / MAC OS:
+### With Linux / MAC OS:
 
     $ source <environment_name>/bin/activate
-    exemple : source envlitreview/bin/activate
+    example : source envlitreview/bin/activate
    
-### Sous Windows:
+### With Windows:
 
     $ source <environment_name>/Scripts/activate
-    exemple : source envlitreview/Scripts/activate
+    example : source envlitreview/Scripts/activate
     
-## Installation des packages : 
-
-Afin que les packages nécessaires au fonctionnement de l'application soient installés sur l'environnement virtuel, entrez la commande suivante :
+## Installation of packages : 
 
     $ pip install -r requirements.txt
-    
-## Lancement de l'application
 
-Enfin pour lancer LitReview, dans le terminal depuis le répertoire du projet :
+## Launch application
 
     $ python manage.py runserver
 
-Vous pouvez ensuite accéder au site via votre navigateur à l'[adresse suivante](http://127.0.0.1:8000/).
+## Access to application
 
-## Accès au site
+You can now access the application with your browser via [this address](http://127.0.0.1:8000/).
 
-Il existe un profil de démonstration auquel vous pouvez accéder en entrant les logins suivants:
+There is a demo profile that you can access by entering the following logins:
 
-  Nom d'utilisateur: userdemo
-  
-  Mot de passe: projet09
-  
-Vous accéderez ainsi à un flux déjà constitué de plusieurs publications.
-Vous pouvez également créer votre propre profil via la page d'inscription.
+    Username: userdemo
+
+    Password: projet09
+
+This will give you access to a feed that already contains several publications.
+
+You can also create your own profile via the registration page.
